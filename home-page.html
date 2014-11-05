@@ -1,0 +1,47 @@
+
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js">
+</script> 
+
+<script> 
+
+
+$(document).ready(function(){ 
+
+  // Here is our target image:
+  window.imageName = "example.JPG";
+
+  // You should change the width and height dynamically:
+  window._iframeStr = $('<iframe onload="modifyImage();' +
+    '" width="640px" height="640px" src="rotated.jpg" frameBorder="0"></iframe>'); 
+
+  // Hide to  remove flickering 
+  window._iframeStr.hide();
+
+  $(document.body).append(window._iframeStr); 
+
+}); 
+
+
+var modifyImage = function(){ 
+
+// Let's get our iframe with the image
+// that has proper orientation:
+// rotated.jpg
+var frame = $("iframe")[0];
+
+var img = $(frame.contentDocument).find("img"); 
+// img now points to rotated.jpg
+
+// Just to be safe:
+img.attr('src', window.imageName);
+
+// The magic part:
+img.remove(); 
+$(frame.contentDocument).find('body').append("<img src='"+ window.imageName +"'>"); 
+
+// We show our iframe when we are done: 
+window._iframeStr.show(); 
+
+};
+
+</script> <body> </body>
